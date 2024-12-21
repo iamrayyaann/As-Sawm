@@ -1,10 +1,13 @@
 {
-    "version": 2,
-    "builds": [
-      { "src": "manage.py", "use": "@vercel/python" }
-    ],
-    "routes": [
-      { "src": "/(.*)", "dest": "manage.py" }
-    ]
-  }
-  
+  "builds": [
+    {
+      "src": "sawm/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "50mb" }
+    }
+  ],
+  "routes": [
+    { "src": "/static/(.*)", "dest": "/static/$1" },
+    { "src": "/(.*)", "dest": "sawm/wsgi.py" }
+  ]
+}
